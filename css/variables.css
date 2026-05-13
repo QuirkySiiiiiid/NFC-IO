@@ -1,0 +1,42 @@
+:root {
+  /* ── Colours ── */
+  --black:      #080808;
+  --deep:       #0c0c0c;
+  --base:       #111111;
+  --card:       #161616;
+  --border:     #1e1e1e;
+  --muted:      #2a2a2a;
+  --line:       #333333;
+  --dim:        #555555;
+  --mid:        #888888;
+  --light:      #bbbbbb;
+  --off-white:  #e8e4de;
+  --white:      #f5f2ee;
+
+  /* accent — warm antique gold */
+  --accent:     #c8b89a;
+  --accent-dim: #7a6e62;
+  --accent-glow:rgba(200,184,154,.12);
+
+  /* ── Typography ── */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-head:    'Barlow Condensed', sans-serif;
+  --font-body:    'DM Mono', monospace;
+
+  /* ── Spacing ── */
+  --section-pad: clamp(80px, 10vw, 140px);
+  --container:   1200px;
+  --gutter:      clamp(20px, 4vw, 60px);
+
+  /* ── Z-index ── */
+  --z-bg:      0;
+  --z-content: 10;
+  --z-nav:     100;
+  --z-popup:   200;
+  --z-cursor:  999;
+
+  /* ── Transitions ── */
+  --ease:      cubic-bezier(.25, .46, .45, .94);
+  --ease-out:  cubic-bezier(.16, 1, .3, 1);
+  --dur:       .4s;
+}

@@ -1,0 +1,228 @@
+/* ─── NFC Popup ──────────────────────────────────────── */
+.nfc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-popup);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(4,4,4,.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s var(--ease);
+}
+
+.nfc-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.nfc-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  position: relative;
+  transform: translateY(24px) scale(.97);
+  transition: transform .5s var(--ease-out);
+}
+
+.nfc-overlay.active .nfc-card {
+  transform: translateY(0) scale(1);
+}
+
+/* top gold line */
+.nfc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+/* close button */
+.nfc-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--dim);
+  border: 1px solid var(--border);
+  cursor: none;
+  transition: color var(--dur), border-color var(--dur);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.nfc-close:hover { color: var(--white); border-color: var(--accent-dim); }
+
+/* header */
+.nfc-header {
+  padding: 32px 28px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nfc-tag {
+  font-size: 9px;
+  letter-spacing: .22em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nfc-tag::before {
+  content: '';
+  width: 16px; height: 1px;
+  background: var(--accent);
+}
+
+.nfc-name {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 10vw, 54px);
+  letter-spacing: .04em;
+  line-height: .95;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.nfc-title {
+  font-size: 11px;
+  letter-spacing: .12em;
+  color: var(--mid);
+  text-transform: uppercase;
+}
+
+/* action buttons */
+.nfc-actions {
+  padding: 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nfc-action {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  background: var(--deep);
+  border: 1px solid var(--border);
+  color: var(--light);
+  font-size: 12px;
+  letter-spacing: .06em;
+  cursor: none;
+  transition: border-color var(--dur), background var(--dur), color var(--dur);
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  width: 100%;
+}
+
+.nfc-action::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent-glow);
+  opacity: 0;
+  transition: opacity .25s;
+}
+
+.nfc-action:hover { border-color: var(--accent-dim); color: var(--white); }
+.nfc-action:hover::after { opacity: 1; }
+
+.nfc-action svg { flex-shrink: 0; opacity: .6; }
+.nfc-action:hover svg { opacity: 1; }
+
+.nfc-action-label { flex: 1; }
+
+.nfc-action-sub {
+  font-size: 9px;
+  color: var(--dim);
+  letter-spacing: .1em;
+  display: block;
+  margin-top: 1px;
+}
+
+.nfc-action-arrow {
+  font-size: 12px;
+  color: var(--dim);
+  transition: transform .2s, color .2s;
+}
+
+.nfc-action:hover .nfc-action-arrow {
+  transform: translateX(3px);
+  color: var(--accent);
+}
+
+/* save contact */
+.nfc-save {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+}
+
+.nfc-save::after { background: rgba(200,184,154,.2); }
+.nfc-save:hover { border-color: var(--accent); background: var(--accent); }
+.nfc-save svg { opacity: 1; }
+
+/* social row */
+.nfc-social {
+  padding: 16px 28px 24px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nfc-social-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  color: var(--dim);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: none;
+  transition: color var(--dur), border-color var(--dur);
+}
+
+.nfc-social-btn:hover { color: var(--accent); border-color: var(--accent-dim); }
+
+/* ── Touch / mobile ── */
+@media (max-width: 480px) {
+  .nfc-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .nfc-card {
+    max-width: 100%;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    transform: translateY(100%);
+  }
+
+  .nfc-overlay.active .nfc-card {
+    transform: translateY(0);
+  }
+
+  /* drag handle for mobile */
+  .nfc-card::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    width: 36px; height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+}

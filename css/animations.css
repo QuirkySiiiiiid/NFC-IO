@@ -1,0 +1,148 @@
+/* ─── Animations & Parallax ──────────────────────────── */
+
+/* parallax containers */
+[data-parallax] {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* stagger delays for children */
+.stagger > *:nth-child(1) { transition-delay: .05s; }
+.stagger > *:nth-child(2) { transition-delay: .12s; }
+.stagger > *:nth-child(3) { transition-delay: .19s; }
+.stagger > *:nth-child(4) { transition-delay: .26s; }
+.stagger > *:nth-child(5) { transition-delay: .33s; }
+.stagger > *:nth-child(6) { transition-delay: .40s; }
+
+/* counter numbers pulse in */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.count-anim { animation: countUp .7s var(--ease-out) both; }
+
+/* horizontal slide for decorative lines */
+@keyframes slideRight {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.line-grow {
+  transform-origin: left;
+  animation: slideRight .8s var(--ease-out) both;
+}
+
+/* cursor */
+@keyframes cursorPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200,184,154,.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(200,184,154,0); }
+}
+
+/* toast */
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+}
+
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-size: 10px;
+  letter-spacing: .14em;
+  padding: 10px 20px;
+  z-index: 999;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+.toast.show { animation: toastIn .3s var(--ease-out) forwards; }
+.toast.hide { animation: toastOut .3s var(--ease) forwards; }
+
+/* custom cursor */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  transform: translate(-50%, -50%);
+}
+
+.cursor-dot {
+  width: 5px; height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.cursor-ring {
+  width: 30px; height: 30px;
+  border: 1px solid rgba(200,184,154,.3);
+  border-radius: 50%;
+  transition: width .3s var(--ease-out), height .3s var(--ease-out),
+              border-color .3s, transform .12s linear;
+}
+
+.cursor-ring.hover {
+  width: 48px; height: 48px;
+  border-color: rgba(200,184,154,.6);
+}
+
+.cursor-ring.click {
+  width: 22px; height: 22px;
+  border-color: var(--accent);
+}
+
+/* section bg parallax pseudo — set via JS inline styles */
+.section-parallax-bg {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* page-load overlay */
+.page-load {
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .6s .2s var(--ease), visibility .6s .2s;
+}
+
+.page-load.done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.page-load-text {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 6vw, 48px);
+  letter-spacing: .14em;
+  color: var(--accent);
+  overflow: hidden;
+}
+
+@keyframes loadSlide {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.page-load-text span {
+  display: inline-block;
+  animation: loadSlide .6s var(--ease-out) both;
+}
